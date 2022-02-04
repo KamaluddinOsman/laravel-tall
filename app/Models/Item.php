@@ -24,4 +24,9 @@ class Item extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeActive( $qurey ){
+        return $qurey->where('status', 1);
+    }
+    
 }
