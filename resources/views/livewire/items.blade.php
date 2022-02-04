@@ -2,7 +2,16 @@
     <div class="mt-8 text-2xl">
         Items
     </div>
+    {{-- {{ $qurey }} --}}
     <div class="mt-6">
+        <div class="flex justify-between">
+            <div class="">
+                <input wire:model.debounce.500ms="q" type="search" placeholder="Search" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus-shadow-outline">
+            </div>
+            <div class="mr-2">
+                <input wire:model="active" type="checkbox" class="mr-2 leading-tight">Active Only?
+            </div>
+        </div>
         <table class="table-auto w-full">
             <thead>
                 <tr>
