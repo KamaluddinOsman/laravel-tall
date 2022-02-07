@@ -58,24 +58,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($items as $item)
-                    <tr>
-                        <td class="border px-4 py-2">{{ $item->id }}</td>
-                        <td class="border px-4 py-2">{{ $item->name }}</td>
-                        <td class="border px-4 py-2">{{ number_format( $item->price, 2 ) }}</td>
-                        @if (!$active)
-                            <td class="border px-4 py-2">{{ $item->status ? 'Active' : 'No Active' }}</td>
-                        @endif
-                        <td class="border px-4 py-2">
-                            <x-jet-button wire:click="confirmItemEdit( {{ $item->id }} )" class="bg-orange-500 hover:bg-orange-700">
-                                Edit {{ $item->id }}
-                            </x-jet-button>
-                            <x-jet-danger-button wire:click="confirmItemDeletion( {{ $item->id }} )" wire:loading.attr="disabled">
-                                Delete
-                            </x-jet-danger-button>
-                        </td>
-                    </tr>
-                @endforeach
+                @if ($items)
+                    @foreach ($items as $item)
+                        <tr>
+                            <td class="border px-4 py-2">{{ $item->id }}</td>
+                            <td class="border px-4 py-2">{{ $item->name }}</td>
+                            <td class="border px-4 py-2">{{ number_format( $item->price, 2 ) }}</td>
+                            @if (!$active)
+                                <td class="border px-4 py-2">{{ $item->status ? 'Active' : 'No Active' }}</td>
+                            @endif
+                            <td class="border px-4 py-2">
+                                <x-jet-button wire:click="confirmItemEdit( {{ $item->id }} )" class="bg-orange-500 hover:bg-orange-700">
+                                    Edit {{ $item->id }}
+                                </x-jet-button>
+                                <x-jet-danger-button wire:click="confirmItemDeletion( {{ $item->id }} )" wire:loading.attr="disabled">
+                                    Delete
+                                </x-jet-danger-button>
+                            </td>
+                        </tr>
+                    @endforeach)
+                    @else
+                        <tr>
+                            <td>No Records</td>
+                        </tr>
+                    @endif
+                @endif
             </tbody>
         </table>
     </div>
@@ -129,6 +136,7 @@
                     <input type="checkbox" class="form-checkbox" wire:model.defer="item.status" id="item.id"/>
                     <span class="ml-2 text-sm text-gray-600">Active</span>
                 </label> --}}
+
 
                 <div class="flex items-center">
                     <input wire:model="item.status" id="active" type="radio" name="status" value="1" {{$item->status ? 'checked' : ''}}
